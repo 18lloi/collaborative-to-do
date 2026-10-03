@@ -37,7 +37,7 @@ A whiteboard-style to-do app. A central task list sits in the middle of the boar
 
 ### Spaces
 - **Workspace:** a shared space for a team (up to 8 people with pads). It contains collaborative lists and ranked lists.
-- **Personal space:** every user has one. It holds their **solo lists** (see open question Q2 about ranked lists).
+- **Personal space:** every user has one. It holds their **solo lists** and private **ranked lists**.
 
 ### List types
 1. **Collaborative list:** the whiteboard board.
@@ -98,7 +98,7 @@ A whiteboard-style to-do app. A central task list sits in the middle of the boar
 
 Derived:
 - **Assigned section** = open items with at least one assignee. **Unassigned** = open items with none.
-- **Pad contents** = open items where the person is an assignee.
+- **Pad contents** = open items in the *selected list* where the person is an assignee, in the list's sort order.
 
 Constraints:
 - At most 8 members with a pad per workspace, enforced in the DB.
@@ -148,8 +148,10 @@ Testing throughout:
 
 ## 8. Open questions
 
-- **Q1:** Do pads show a person's assignments for the *currently selected* collaborative list only, or across all collaborative lists in the workspace?
-- **Q2:** Can the personal space also hold ranked lists (e.g. a private "Movies to watch"), or only solo lists?
-- **Q3:** Within a pad, what order are tasks shown in: the list's order, or a per-person order?
-- **Q4:** Can a user belong to multiple workspaces? (Assumed yes.)
-- **Q5:** Do the Now / Next / Later boxes in solo lists have their own done handling, or share the list's Done area?
+None open. Resolved 2026-10-03:
+
+- **Q1, Pad scope:** Pads show assignments for the *currently selected* collaborative list only. A cross-list "My tasks" view is a possible later addition.
+- **Q2, Personal ranked lists:** Yes. The personal space holds both solo and ranked lists.
+- **Q3, Pad order:** Tasks in a pad follow the list's order (Manual or Smart sort). No per-person ordering, so no extra position column on `item_assignees`.
+- **Q4, Multiple workspaces:** Yes, a user can belong to many workspaces.
+- **Q5, Solo done handling:** Now / Next / Later share the list's single Done area. `solo_bucket` is kept on the item so Restore returns it to its previous box.
