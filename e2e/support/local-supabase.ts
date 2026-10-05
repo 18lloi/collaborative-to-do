@@ -54,3 +54,18 @@ export async function approveUser(email: string): Promise<void> {
     .eq('id', user.id)
   if (updateError) throw updateError
 }
+
+/** Makes an existing user an approved site admin (test only; bypasses RLS via service role). */
+export async function makeSiteAdmin(email: string): Promise<void> {
+  const { API_URL, SECRET_KEY } = localSupabase()
+  const admin = createClient(API_URL, SECRET_KEY)
+  const { data, error } = await admin.auth.admin.listUsers({ perPage: 1000 })
+  if (error) throw error
+  const user = data.users.find((u) => u.email === email)
+  if (!user) throw new Error(`No user ${email}`)
+  const { error: updateError } = await admin
+    .from('profiles')
+    .update({ approval_status: 'approved', is_site_admin: true })
+    .eq('id', user.id)
+  if (updateError) throw updateError
+}
