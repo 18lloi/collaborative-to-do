@@ -6,7 +6,15 @@ import tseslint from 'typescript-eslint'
 import prettier from 'eslint-config-prettier'
 
 export default tseslint.config(
-  { ignores: ['dist', 'playwright-report', 'test-results', 'supabase/.temp'] },
+  {
+    ignores: [
+      'dist',
+      'src/data/database.types.ts',
+      'playwright-report',
+      'test-results',
+      'supabase/.temp',
+    ],
+  },
   {
     files: ['**/*.{ts,tsx}'],
     extends: [js.configs.recommended, ...tseslint.configs.recommended, prettier],
