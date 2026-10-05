@@ -6,6 +6,7 @@ import type { Profile } from './data/auth'
 
 // The data layer talks to Supabase; stub it so App can render without a backend.
 vi.mock('./data/auth', () => ({ sendMagicLink: vi.fn(), signOut: vi.fn() }))
+vi.mock('./data/admin', () => ({ listUsersForAdmin: vi.fn(), setApprovalStatus: vi.fn() }))
 
 function renderWith(state: AuthState) {
   return render(
