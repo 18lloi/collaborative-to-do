@@ -1,0 +1,4 @@
+-- Copy to supabase/seed.local.sql (gitignored) and put your own address in.
+-- Applied on `supabase db reset`. For a hosted project, run the same insert once in the SQL editor.
+insert into public.admin_bootstrap_emails (email) values ('you@example.com')
+on conflict do nothing;

@@ -31,3 +31,4 @@ playwright-report
 supabase/.temp
 supabase/.branches
 .env*.local
+supabase/seed.local.sql
